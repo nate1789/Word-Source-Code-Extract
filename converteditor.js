@@ -4,9 +4,29 @@
         var myDiv = document.querySelector(".ck-content");
         var htmlContent = myDiv.innerHTML;
 
-        // Copying the HTML content to the clipboard
-        copyToClipboard(htmlContent);
+        // Remove classes and IDs from the HTML content
+        var cleanedHTML = removeClassesAndIds(htmlContent);
+
+        // Copying the cleaned HTML content to the clipboard
+        copyToClipboard(cleanedHTML);
     });
+
+    // Function to remove classes and IDs from HTML content
+    function removeClassesAndIds(html) {
+        // Create a temporary element to parse the HTML
+        var tempElement = document.createElement("div");
+        tempElement.innerHTML = html;
+
+        // Remove classes and IDs from all elements
+        var allElements = tempElement.querySelectorAll("*");
+        allElements.forEach(function (element) {
+            element.removeAttribute("class");
+            element.removeAttribute("id");
+        });
+
+        // Return the cleaned HTML
+        return tempElement.innerHTML;
+    }
 
     // Function to copy text to the clipboard
     function copyToClipboard(text) {
